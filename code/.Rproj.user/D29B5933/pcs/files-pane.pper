@@ -1,0 +1,9 @@
+{
+    "path" : "~/Repos/geneontology/code",
+    "sortOrder" : [
+        {
+            "ascending" : true,
+            "columnIndex" : 2
+        }
+    ]
+}

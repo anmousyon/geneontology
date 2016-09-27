@@ -1,0 +1,512 @@
+plot(1, 2,type = "1")
+plot(1, 2,type = "l")
+plot(1, 2)
+plot(3, 6)
+plot((2, 3), (2, 3))
+x1<- c(2, 2)
+x2<- c(3, 3)
+plot(x1, x2, type="n")
+plot(x1, x2)
+x1
+x2
+par(mar = rep(0,4))
+plot(c(-1, 26), 0:1, type = "n", axes = FALSE)
+plot(1, 2)
+plot(1, 2)
+plot(1, 2,x <- c(1,3,6,9,12)
+y <- c(1.5,2,7,8,15)
+)
+x <- c(1,3,6,9,12)
+y <- c(1.5,2,7,8,15)
+plot(x,y)
+par(mfrow=c(1,1))
+x <- c(1,3,6,9,12)
+y <- c(1.5,2,7,8,15)
+plot(x,y)
+library(quantmod)
+?getSymbols
+getSymbols("TSLA", from = "2000")
+getSymbols("TSLA")
+chartSeries(TSLA)
+addEMA(60)
+rm(TSLA)
+getSymbols("TSLA", from="2014-01-01")
+chartSeries(TSLA)
+addEMA(60)
+rm(TSLA)
+chartSeries(TSLA)
+getSymbols("TSLA", from="2014-01-01")
+chartSeries(TSLA)
+addEMA(200)
+# load SIT package
+# Install curl
+install.packages('curl', repos = 'http://cran.r-project.org')
+###############################################################################
+# Install Systematic Investor Toolbox (SIT) package
+# github.com/systematicinvestor/SIT
+###############################################################################
+# please first install SIT.date
+devtools::install_github('systematicinvestor/SIT.date')
+library(curl)
+curl_download('https://github.com/systematicinvestor/SIT/raw/master/SIT.tar.gz', 'sit',mode = 'wb',quiet=T)
+install.packages('sit', repos = NULL, type='source')
+library(SIT)
+t
+t<-read.table("https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data")
+names(t) <- c("CRIM", "ZN", "INDUS", "CHAS", "NOX", "RM", "AGE", "DIS", "RAD", "TAX", "PTRATIO", "B", "LSTAT", "MEDV")
+model <- glm(MEDV ~ . , data = t)
+summary(model)
+labels(t)
+dim(t)
+colnames(t)
+class(t)
+t[,t$MEDV>20]
+t[which(t$MEDV > 20),]
+t[which(t$MEDV > 20),]
+?sample
+1:nrow(t)
+sample(1:nrow(t),0.8*nrow(t))
+t[sample(1:nrow(t),0.8*nrow(t)),]
+?glm
+model <- glm(MEDV~ CRIM + NOX, data = t)
+summary(model)
+model <- glm(MEDV~ CRIM + NOX + RM, data = t)
+summary(model)
+model <- glm(MEDV~ ., data = t)
+summary(model)
+trainIndex <- sample(1:nrow(t), 0.8 * nrow(t))
+train <- t[trainIndex, ]
+test <- t[-trainIndex, ]
+model <- glm(MEDV ~ CRIM + ZN + INDUS , data = train)
+summary(model)
+predict(model, test)
+p<-predict(model, test)
+p
+test$MEDV - p
+plot(test[,"MEDV"], predict(model, test))
+abline(0,1)
+plot(test[,"MEDV"], predict(model, test))
+abline(0,1)
+model <- glm(MEDV ~ CRIM + ZN + INDUS , data = train)
+?glm
+labels(t)
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+?if
+;
+library(random)
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/craps.game.R')
+craps()
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Soln1.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Soln1.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Soln1.R')
+library(quantmod)
+getSymbols("BAC", from="2000-01-01")
+getSymbols("PCLN", from="2000-01-01")
+chartSeries(BAC)
+chartSeries(PCLN)
+addSMA(200)
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+data <- new.env()
+getSymbols(tickers, src = 'yahoo', from = '2000-01-01', env = data, auto.assign = T)
+bt.prep(data, align='keep.all', dates='2000::2016')
+#*****************************************************************
+# Code Strategies
+#******************************************************************
+prices = data$prices
+# Buy & Hold
+data$weight[] = 1
+buy.hold = bt.run(data)
+# MA Cross
+sma = bt.apply(data, function(x) { SMA(Cl(x), 200) } )
+data$weight[] = NA
+data$weight[] = iif(prices >= sma, 1, 0)
+sma.cross = bt.run(data, trade.summary=T)
+data <- new.env()
+getSymbols(tickers, src = 'yahoo', from = '2000-01-01', env = data, auto.assign = T)
+bt.prep(data, align='keep.all', dates='2000::2016')
+#*****************************************************************
+# Code Strategies
+#******************************************************************
+prices = data$prices
+# Buy & Hold
+data$weight[] = 1
+buy.hold = bt.run(data)
+# MA Cross
+sma = bt.apply(data, function(x) { SMA(Cl(x), 200) } )
+data$weight[] = NA
+data$weight[] = iif(prices >= sma, 1, 0)
+sma.cross = bt.run(data, trade.summary=T)
+dir()
+R.home()
+getwd()
+?randomNumbers
+rm(list = ls())
+t
+t<-read.table("https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data")
+names(t) <- c("CRIM", "ZN", "INDUS", "CHAS", "NOX", "RM", "AGE", "DIS", "RAD", "TAX", "PTRATIO", "B", "LSTAT", "MEDV")
+model <- glm(MEDV ~ CRIM + AGE + TAX, data = t)
+summary(model)
+model <- glm(MEDV ~ ., data = t)
+summary(model)
+sample(1:6,1)
+sample(1:6,1)
+sample(1:6,1)
+sample(1:6,1)
+sample(1:6,1)
+sample(1:6,1)
+sample(1:6,1)
+dim(t)
+trainIndex <- sample(1:nrow(t), 0.8 * nrow(t))
+trainIndex
+train <- t[trainIndex, ]
+test <- t[-trainIndex, ]
+model <- glm(MEDV ~ CRIM + ZN + INDUS , data = train)
+model <- glm(MEDV ~ CRIM + ZN + TAX , data = train)
+summary(model)
+model <- glm(MEDV ~ CRIM + ZN + TAX , data = train)
+colnames(train)
+p<-predict(model, test)
+x=c(p, test$MEDV)
+x
+diff = abs(test$MEDV - p)
+diff
+plot(test[,"MEDV"], predict(model, test))
+abline(0,1)
+data(iris)
+iris
+dim(iris)
+head(iris)
+i <- iris
+i$Species <- as.numeric(i$Species)
+model <- glm(Species~., data=i)
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/craps.game.R')
+craps()
+x <- craps()
+x
+x <- craps()
+x
+print(craps())
+print(craps())
+print(craps())
+print(craps())
+print(craps())
+print(craps())
+source('~/.active-rstudio-document')
+library(quantmod)
+getSymbols("DJIA", from="2000-01-01")
+getSymbols("BAC", from="2000-01-01")
+BAC
+chartSeries(DJIA)
+addSMA(200)
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+load.packages()
+load.packages
+library(SIT)
+library(devtools)
+4 * 3^5
+?chartSeries
+t = read.data("https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data")
+t=read.table("https://archive.ics.uci.edu/ml/machine-learning-databases/housing/housing.data")
+t
+dim(t)
+head(t)
+names(t)	<- c("CRIM",	"ZN",	"INDUS",	"CHAS",	"NOX",	"RM",	"AGE",	"DIS",	"RAD",	"TAX","PTRATIO",	"B",	"LSTAT",	"MEDV")
+head(t)
+summary(t$CRIM)
+plot(t$CRIM)
+hist(t$CRIM)
+hist(t$MEDV)
+cor(t[,1],t[,14])
+cor(t$NOX,t$MEDV)
+library(corrplot)
+M<-cor(t)
+head(M)
+corrplot(M, method="circle")
+corrplot(M, method="number")
+t[which(t$MEDV>20),]
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+sample(1:6, 1)
+train = sample(1:nrow(t),0.8*nrow(t))
+train
+train
+train = sample(1:nrow(t),0.8*nrow(t))
+trainingData = t[train,]
+?glm
+model = glm(MEDV ~ CRIM + NOX + RM, data = t)
+summary(model)
+model = glm(MEDV ~ ., data = t)
+summary(model)
+trainIndex	<- sample(1:nrow(t),	0.8	*	nrow(t))
+train	<- t[trainIndex,	]
+test	<- t[-trainIndex,	]
+model = glm(MEDV ~ CRIM + NOX + RM, data = train)
+p <- predict(model,newdata = test)
+head(p)
+head(test$MEDV)
+plot(test[,"MEDV"],	predict(model,	test))
+abline(0,1)
+data(iris)
+iris
+head(iris)
+iris$Species
+hist(iris$Sepal.Length)
+hist(iris$Sepal.Width)
+hist(iris$Petal.Length)
+cor(iris$Sepal.Length, iris$Species)
+i = iris
+i$Species = as.numeric(i$Species)
+cor(i$Sepal.Length, i$Species)
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+tickers = spl('THLD')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+source('~/Google Drive/utd/Fa 2016/cs 6375/Assignments/Lab2/Lab2/trading.R')
+install.packages("h2o", lib="/Library/Frameworks/R.framework/Versions/3.2/Resources/library")
+library(h2o)
+localH2O = h2o.init()
+demo(h2o.gl)
+demo(h2o.glm)
+?h2o.deeplearning
+detach(h2o)
+?detach
+localH2O
+h2o.cross_validation_predictions()
+h2o.cross_validation_predictions(model.extract())
+?`h2o-package`
+df <-data.frame(ncol=5)
+df
+rm(df)
+df <-data.frame()
+df[1,]<-c(1,2,3)
+df <-data.frame(10,5)
+df[1,]<-c(1,2,3)
+df
+rm(df)
+df <-data.frame(10,5)
+rm(df)
+df <-data.frame(10,5,2)
+df[2,]<- c(10,2,5)
+df
+rm(df)
+df<-data.frame(game=0, balance=0, outcome=0, nextBet=0)
+df[1,]<-c(1, 1000, 0, 200)
+df
+df[2,]<-c(2, 900, 0, 200)
+df
+rm(df)
+df<-data.frame(game=0, balance=1000, bet = 0, outcome=0)
+# Add data by rows
+df[1,]<-c(1, 1000, 100, 0)
+df[2,]<-c(2, 900, 200, 0)
+# check if the data exists
+df
+df<-data.frame(game=0, balance=1000, bet = 0, outcome=0)
+df<-data.frame(game, balance, bet, outcome)
+df<-data.frame(game=0, balance=1000, bet = 0, outcome=0)
+rm(df)
+df<-data.frame(game=0, balance=1000, bet = 0, outcome=0)
+nrow(df)
+rm(df)
+df<-data.frame(game="", balance=1000, bet = 0, outcome=0)
+df
+nrow(df)
+ncol(df)
+detach("h20", unload=T)
+ls()
+detach("package:h2o", unload=TRUE)
+t=read.delim("/Users/an/Google Drive/utd/Fa 2016/cs 6375/Assignments/Assignment2/data/train.dat")
+head(t)
+t=read.delim("/Users/an/Google Drive/utd/Fa 2016/cs 6375/Assignments/Assignment2/data/train.dat", sep = " ")
+t
+t=read.delim("/Users/an/Google Drive/utd/Fa 2016/cs 6375/Assignments/Assignment2/data/train.dat", sep = "\t")
+t
+head(t)
+t=read.delim("/Users/an/Google Drive/utd/Fa 2016/cs 6375/Assignments/Assignment2/data/test-win.dat", sep = "\t")
+t
+head(t)
+plot(c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+abline(h = 0, v = 0, col = "gray60")
+text(1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+abline(h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+abline(a = 1, b = 2, col = 2)
+text(1,3, "abline( 1, 2 )", col = 2, adj = c(-.1, -.1))
+abline(h = 0, v = 0, col = "gray60")
+text(1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+abline(h = -1:5, v = -2:3, col = "lightgray", lty = 3)
+plot(c(-2,3), c(-1,5), type = "n", xlab = "x", ylab = "y", asp = 1)
+abline(h = 0, v = 0, col = "gray60")
+text(1,0, "abline( h = 0 )", col = "gray60", adj = c(0, -.1))
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+source('~/.active-rstudio-document')
+-0.4 *1 + 0.2 * 1 + 0.4 * 0 - 0.5 *1
+install.packages("pracma", lib="/Library/Frameworks/R.framework/Versions/3.2/Resources/library")
+library(pracma)
+?pracma
+sigmoid(-0.7)
+1/(1+exp(-0.7))
+sigmoid(1, -0.7)
+1/(1+exp(0.7))
+0.2 *1 - 0.3 * 1 + 0.1 * 0 + 0.2 *1
+sigmoid(0.1)
+0.1 *1 - 0.3 * 0.332 - 0.2 * 0.525
+sigmoid(-0.105)
+0.474 * (1- 0.474) * (1 – 0.474)
+0.474 * (1 - 0.474) * (1 - 0.474)
+0.525 * (1 – 0.525) * [-0.2 * 0.131]
+0.525 * (1 - 0.525) * [-0.2 * 0.131]
+0.525 * (1 - 0.525) * (-0.2 * 0.131)
+0.9 * 0.131 * 0.525
+0.9 * 0.131 *  0.332
+0.9 * 0.131 * 1
+0.9 * -0.006 *  1
+0.525 * (1 – 0.525) * (-0.2 * 0.131)
+0.525 * (1 - 0.525) * (-0.2 * 0.131)
+0.332 * (1 - 0.332) * (-0.2 * 0.131)
+library(neuralnet)
+library(MASS)
+data <- Boston
+index <- sample(1:nrow(data),round(0.75*nrow(data)))
+train <- data[index,]
+test <- data[-index,]
+lm.fit <- glm(medv~., data=train)
+summary(lm.fit)
+pr.lm <- predict(lm.fit,test)
+MSE.lm <- sum((pr.lm - test$medv)^2)/nrow(test)
+maxs <- apply(data, 2, max)
+mins <- apply(data, 2, min)
+scaled <- as.data.frame(scale(data, center = mins, scale = maxs - mins))
+train_ <- scaled[index,]
+test_ <- scaled[-index,]
+n <- names(train_)
+n
+f <- as.formula(paste("medv ~", paste(n[!n %in% "medv"], collapse = " + ")))
+f
+nn <- neuralnet(f,data=train_,hidden=c(5,3),linear.output=T)
+?`neuralnet
+;
+''
+'
+;;
+"
+?
+`
+?neuralnet
+nn <- neuralnet(medv~.,data=train_,hidden=c(5,3),linear.output=T)
+train_
+head(train_)
+library(party)
+library(rpart)
+?rpart::rpart
+Boston
+View(Boston)
+fit <- rpart(medv ~., data=Boston)
+fit
+print(fit)
+printcp(fit)
+par(mfrow = c(1,2), xpd = NA) # otherwise on some devices the text is clipped
+plot(fit)
+text(fit, use.n = TRUE)
+summary(fit)
+?rpart
+stagec
+data(stagec)
+View(stagec)
+progstat <- factor(stagec$pgstat, levels = 0:1, labels = c("No", "Prog"))
+cfit  <- rpart(progstat ~  age + eet + g2 + grade + gleason + ploidy, data = stagec, method = 'class', parms = list(split="information"))
+cfit
+cfit  <- rpart(progstat ~  age + eet + g2 + grade + gleason + ploidy, parms = list(split = 'information'),
+data = stagec, method = 'class', parms = list(split="information"))
+cfit  <- rpart(progstat ~  age + eet + g2 + grade + gleason + ploidy, parms = list(split = 'information'), data = stagec, method = 'class', parms = list(split="information"))
+cfit  <- rpart(progstat ~  age + eet + g2 + grade + gleason + ploidy, parms = list(split = 'information'), data = stagec, method = 'class')
+setwd("~/temp/GO_Asssocition_Paper/code/")
+source("script.R")
+source("findAssociation.R")
+source("findAssociation.R")
+install.packages("GO.db", lib="/Library/Frameworks/R.framework/Versions/3.2/Resources/library")
+source("findAssociation.R")
+library(GO.db)
+install.packages("GO.db")
+source("https://bioconductor.org/biocLite.R")
+biocLite("GO.db")
+library(GO.db)
+installed.packages()
+library("GO.db", lib.loc="~/R/Rlib")
+R -ver()
+R ver()
+which R
+source("https://bioconductor.org/biocLite.R")
+biocLite()
+biocLite()
+biocLite("GO.db", "GOSim", "GOSemSim", "GOstats", "RBGL")
+biocLite(c("GO.db", "GOSim", "GOSemSim", "GOstats", "RBGL"))
+library(RBGL)
+library(GO.db)
+library(GOSim)
+library(GOSemSim)
+library(GOstats)
+library(RBGL)
+library(arules)
+install.packages("arules")
+library(RBGL)
+library(GO.db)
+library(GOSim)
+library(GOSemSim)
+library(GOstats)
+library(RBGL)
+library(arules)
