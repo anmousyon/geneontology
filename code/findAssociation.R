@@ -47,6 +47,7 @@ offspringThreshold <- 200
 # find annotation
 ##get third column of gene annotation and store in list (set since unique)
 genes <- unique(as.character(annot[,3]))
+
 #conceptsMat<-matrix(nrow=length(genes), ncol=20)
 ##create a matrix of size 5000*60
 conceptsMat<-matrix(nrow=5000, ncol=60)
@@ -54,10 +55,15 @@ conceptsMat<-matrix(nrow=5000, ncol=60)
 conceptsList<-list()
 ##?
 ctr<-1
+
+#generate a set of 100 random numbers less than number fo genes
+chosenNums = floor(runif(length(genes)/10, min=0, max=length(genes)))
+
+chosenGo<-list()
+
 # go through all genes and find terms from
 ##for all genes in list
-#for(i in 1:length(genes)) {
-for(i in 1:400) {
+for(i in 1:length(genes)) {
   ##get all the information for that gene, for specified ontology
   annotTerms<-annot[annot[,3]==genes[i] & annot[,9]==ontology & annot[,7]!="IEA",]
   ##get fifth column of annotation and store in list (set since unique)
@@ -66,6 +72,11 @@ for(i in 1:400) {
   if (length(goTerms)<2) 
     next
   ##store the depths of all the terms in a list
+  #print(goTerms)
+  if(i %in% chosenNums){
+    chosenGo[[length(chosenGo)+1]] = goTerms
+    next
+  }
   depths<-sapply(goTerms, findDepth)
   ##if none of the terms have a depth greater than 2 then skip this gene
   if (max(depths)<2) next;
@@ -121,7 +132,7 @@ for(i in 1:400) {
   conceptsMat[ctr,1]<-genes[i]
   ##create a new vector
   lstVector<-vector()
-  ##for every concepyt
+  ##for every concept
   for(j in 1:length(concepts)) {
     ##insert the concept into matrix at row=ctr column = j+1
     ##format will be [gene, c1, c2, c3, c4, ...]
@@ -138,15 +149,26 @@ for(i in 1:400) {
   ##increment the row number?
   ctr<-ctr+1
 }
+
+#generate a set of 20 random numbers less than 400
+chosenNums = floor(runif(20, min=0, max=length(chosenGo)))
+chosen = list()
+#get the 
+for(i in 1:length(chosenGo)){
+  chosen = c(chosen, chosenGo[chosenNums[i]])
+}
+  
 write.table(conceptsMat,file=paste("../newconcepts_", ont, "_thres_", depthThreshold, ".txt", sep=""))
 # perform association analysis on list
 ##get all the transactions for the concepts
 trans<-as(conceptsList, "transactions")
 saveRDS(trans, file=paste("../trans_", ont, "_thres_", depthThreshold, ".RDS", sep=""))
-summary(trans)
+#summary(trans)
 ## generating rules
 rules<-apriori(trans,parameter = list(supp=0.01, conf=0.8))
-inspect(rules)
+#inspect(rules)
 ##sort the rules by their lift value
 rules_high_lift<-sort(rules, by="lift")
 write(rules_high_lift, file=paste("../newrules_", ont, "_thresh_", depthThreshold, "_sort_lift.txt", sep=""), sep="\t", col.names=NA)
+#write the filtered out terms to chosen.csv
+lapply(chosenGo, function(x) write.table( data.frame(x), 'chosen.csv'  , append= T, sep=',' ))
