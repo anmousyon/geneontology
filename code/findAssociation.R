@@ -57,13 +57,13 @@ conceptsList<-list()
 ctr<-1
 
 #generate a set of 100 random numbers less than number fo genes
-chosenNums = floor(runif(640, min=0, max=3200))
+chosenNums = floor(runif(1280, min=0, max=6400))
 
 chosenGo<-list()
 
 # go through all genes and find terms from
 ##for all genes in list
-for(i in 1:3200) {
+for(i in 1:6400) {
   ##get all the information for that gene, for specified ontology
   annotTerms<-annot[annot[,3]==genes[i] & annot[,9]==ontology & annot[,7]!="IEA",]
   ##get fifth column of annotation and store in list (set since unique)

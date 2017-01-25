@@ -61,6 +61,7 @@ def rules():
 
     for rules in ruleset:
         rules[0], rules[len(rules)-1] = rules[len(rules)-1], rules[0]
+    print(ruleset)
     return ruleset
     # print(ruleset)
 
@@ -84,6 +85,8 @@ def check(ruleset, chosen):
     incorrect = 0
     for x in chosen:
         for y in ruleset:
+            if len(y) > 2:
+                print(len(y))
             if set(y[1:]) <= set(x):
                 if y[0] in x:
                     correct += 1
@@ -93,7 +96,7 @@ def check(ruleset, chosen):
                     for q in y:
                         if q in x:
                             count +=1
-                    print(count/len(y))
+                    #print(count/len(y))
     print('correct', correct)
     print('incorrect', incorrect)
 
